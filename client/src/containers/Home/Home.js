@@ -49,7 +49,7 @@ class Home extends Component {
 
         return (
             <div>
-                {/* {authRedirect} */}
+                {authRedirect}
                 <h1 className={classes.Title}>URL shortener</h1>
                 <h3 className={classes.Pink}>Current user: <span style={{color: 'white'}}>{this.props.currentUser}</span></h3>
                 <form onSubmit={this.formSubmitHandler}>

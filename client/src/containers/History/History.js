@@ -41,7 +41,7 @@ class History extends Component {
 
         return (
             <React.Fragment>
-                {/* {authCheck} */}
+                {authCheck}
                 <h1>{this.props.currentUser}'s history</h1>
                 <table className='table table-dark'>
                     <thead>
