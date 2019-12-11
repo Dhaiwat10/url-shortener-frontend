@@ -26,7 +26,7 @@ class History extends Component {
                     <td>{currentRecord.baseUrl}</td>
                     <td>
                         <a 
-                            href={'http://localhost:5000/'+currentRecord.shortenedCode}
+                            href={'http://stark-fjord-67228.herokuapp.com/'+currentRecord.shortenedCode}
                             target='_blank'>
                                 {currentRecord.shortenedCode}
                         </a>
