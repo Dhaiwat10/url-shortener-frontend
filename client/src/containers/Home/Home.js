@@ -7,7 +7,7 @@ import classes from './Home.module.css';
 
 class Home extends Component {
     state = {
-        inputUrl: '',
+        inputUrl: null,
         generatedCode: ''
     }
 
@@ -31,12 +31,16 @@ class Home extends Component {
     }
 
     render() {
+        //CSS classes
+        const inputCssClasses = [classes.Input, 'form-control'].join(' ');
+        const buttonClasses = ['btn', classes.Button].join(' ');
+
         let generatedCodeDisplay = null;
 
         if(this.state.generatedCode) {
             generatedCodeDisplay = (
                 <div>
-                    <p>Generated code: <a target="_blank" href={'https://stark-fjord-67228.herokuapp.com/'+this.state.generatedCode}>/{this.state.generatedCode}</a></p>
+                    <p>Generated code:  <a target="_blank" href={'https://stark-fjord-67228.herokuapp.com/'+this.state.generatedCode}>/{this.state.generatedCode}</a></p>
                 </div>
             )
         }
@@ -45,16 +49,20 @@ class Home extends Component {
 
         return (
             <div>
-                {authRedirect}
+                {/* {authRedirect} */}
                 <h1 className={classes.Title}>URL shortener</h1>
-                <h3>Current user: {this.props.currentUser}</h3>
+                <h3 className={classes.Pink}>Current user: <span style={{color: 'white'}}>{this.props.currentUser}</span></h3>
                 <form onSubmit={this.formSubmitHandler}>
-                    <Input 
-                        changed={this.inputChangedHandler}
+                    <label className={classes.Pink} for='urlInput'>Enter a URL:</label>
+                    <input
+                        id='urlInput'
+                        className={inputCssClasses} 
+                        onChange={this.inputChangedHandler}
                         inputUrl={this.state.inputUrl}
                         placeholeder="Enter a new URL"
-                        type="text"/>
-                    <button type="submit">Submit</button>
+                        type="text"
+                        required/>
+                    <button className={buttonClasses} type="submit">Submit</button>
                 </form>
                 {generatedCodeDisplay}
                 <Link to='/history'>Your history</Link>

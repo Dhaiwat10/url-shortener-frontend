@@ -1,4 +1,9 @@
-.Table {
+table {
     margin: auto;
-    border: 2px solid black;
+    margin-top: 20px;
+    width: 60% !important;
+}
+
+th {
+    color: #f44292;
 }

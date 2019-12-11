@@ -5,6 +5,8 @@ import * as actionTypes from '../../store/actions';
 import axios from 'axios';
 import { Redirect, Link } from 'react-router-dom';
 
+import classes from './Login.module.css';
+
 class Login extends Component {
     state = {
         username: '',
@@ -42,6 +44,10 @@ class Login extends Component {
 
 
     render() {
+        //CSS classes
+        const inputCssClasses = [classes.Input, 'form-control'].join(' ');
+        const buttonClasses = ['btn', classes.Button].join(' ');
+
         let authMessage = null;
 
         if(this.state.authStatus) {
@@ -63,9 +69,16 @@ class Login extends Component {
                 {redirect}
                 <h1>Login</h1>
                 <form onSubmit={this.onFormSubmitHandler}>
-                    <Input placeholder='Username' type='text' changed={this.onUsernameChangeHandler}/>
-                    <Input placeholder='Password' type='password' changed={this.onPasswordChangeHandler}/>
-                    <button type='submit'>Login</button>
+                    <div className="form-group">
+                        <label className={classes.Pink} for="usernameInput">Username</label>
+                        <input className={inputCssClasses} id='usernameInput' placeholder='Username' type='text' onChange={this.onUsernameChangeHandler}/>
+                    </div>
+                    
+                    <div className="form-group">
+                        <label className={classes.Pink} for='passwordInput'>Password</label>
+                        <input className={inputCssClasses} id='passwordInput' placeholder='Password' type='password' onChange={this.onPasswordChangeHandler}/>
+                    </div>
+                    <button className={buttonClasses} type='submit'>Login</button>
                 </form>
                 {authMessage}
                 <Link to='/'>New user?</Link>

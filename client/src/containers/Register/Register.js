@@ -3,6 +3,9 @@ import Input from '../../components/Input/Input';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { Redirect, Link } from 'react-router-dom';
+import {Helmet} from 'react-helmet';
+
+import classes from './Register.module.css';
 
 class Register extends Component {
     state = {
@@ -37,6 +40,10 @@ class Register extends Component {
     }
 
     render() {
+        //CSS classes
+        const inputCssClasses = [classes.Input, 'form-control'].join(' ');
+        const buttonClasses = ['btn', classes.Button].join(' ');
+
         let redirect = null;
         if(this.state.regSuccess === true) {
             redirect = (<Redirect to='/login' />)
@@ -49,16 +56,26 @@ class Register extends Component {
             redirect = null;
 
         return (
-            <React.Fragment>
+            <div className={classes.PageBody}>
+                {/* <Helmet>
+                    <style>{'body { background-color: #1b2b66; }'}</style>
+                </Helmet> */}
                 {redirect}
                 <h1>Register</h1>
                 <form onSubmit={this.onFormSubmitHandler}>
-                    <Input placeholder='Username' type='text' changed={this.onUsernameChangeHandler}/>
-                    <Input placeholder='Password' type='password' changed={this.onPasswordChangeHandler}/>
-                    <button type='submit'>Register</button>
+                    <div className="form-group">
+                        <label className={classes.Pink} for="usernameInput">Username</label>
+                        <input className={inputCssClasses} id='usernameInput' placeholder='Username' type='text' onChange={this.onUsernameChangeHandler}/>
+                    </div>
+                    
+                    <div className="form-group">
+                        <label className={classes.Pink} for='passwordInput'>Password</label>
+                        <input className={inputCssClasses} id='passwordInput' placeholder='Password' type='password' onChange={this.onPasswordChangeHandler}/>
+                    </div>
+                    <button type='submit' className={buttonClasses}>Register</button>
                 </form>
                 <Link to='/login'>Already have an account?</Link>
-            </React.Fragment>
+            </div>
         );
     }
 }

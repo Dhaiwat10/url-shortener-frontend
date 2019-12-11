@@ -10,7 +10,8 @@ const input = (props) => {
                 type={props.type} 
                 placeholder={props.placeholder}
                 onChange={props.changed}
-                value={props.inputUrl}></input>
+                value={props.inputUrl}
+                id={props.id}></input>
         </div>
     )
 }
