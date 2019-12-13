@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import * as actionTypes from '../../store/actions';
 import axios from 'axios';
 import { Redirect, Link } from 'react-router-dom';
+import Spinner from '../../components/UI/Spinner/Spinner';
 
 import classes from './Login.module.css';
 
@@ -11,7 +12,16 @@ class Login extends Component {
     state = {
         username: '',
         password: '',
-        authStatus: null
+        authStatus: null,
+        loading: true
+    }
+
+    componentWillUnmount() {
+        this.setState({loading: true})
+    }
+
+    componentDidMount() {
+        this.setState({loading: false});
     }
 
     onUsernameChangeHandler = (e) => {
@@ -24,7 +34,7 @@ class Login extends Component {
 
     onFormSubmitHandler = (e) => {
         e.preventDefault();
-        console.log('Executed');
+        this.setState({loading: true});
         const reqUser = {username: this.state.username, password: this.state.password};
 
         axios.post('https://stark-fjord-67228.herokuapp.com/users/auth', reqUser)
@@ -32,13 +42,13 @@ class Login extends Component {
                 console.log(res);
                 if(res.data.auth) {
                     this.props.onLogin(res.data.username);
-                    this.setState({authStatus: true});
+                    this.setState({authStatus: true, loading: false});
                 } else {
-                    this.setState({authStatus: false})
+                    this.setState({authStatus: false, loading: false})
                 }
             })
             .catch(err => {
-                this.setState({authStatus: false})
+                this.setState({authStatus: false, loading: false})
         });
     }
 
@@ -63,10 +73,11 @@ class Login extends Component {
         }
 
         const redirect = this.props.isLoggedIn ? <Redirect to='/home' /> : null;
-        
-        return (
-            <React.Fragment>
-                {redirect}
+
+        const spinner = <Spinner />;
+
+        const content = this.state.loading ? spinner : (
+            <div>
                 <h1>Login</h1>
                 <form onSubmit={this.onFormSubmitHandler}>
                     <div className="form-group">
@@ -82,6 +93,13 @@ class Login extends Component {
                 </form>
                 {authMessage}
                 <Link to='/'>New user?</Link>
+            </div>
+        );
+        
+        return (
+            <React.Fragment>
+                {redirect}
+                {content}
             </React.Fragment>
         );
     }

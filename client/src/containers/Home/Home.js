@@ -1,14 +1,25 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import Input from '../../components/Input/Input';
 import { Redirect, Link } from 'react-router-dom';
 import classes from './Home.module.css';
+import Spinner from '../../components/UI/Spinner/Spinner';
+import SmallSpinner from '../../components/UI/SmallSpinner/SmallSpinner';
 
 class Home extends Component {
     state = {
         inputUrl: null,
-        generatedCode: ''
+        generatedCode: null,
+        pageLoading: true,
+        codeLoading: false
+    }
+
+    componentDidMount() {
+        this.setState({pageLoading: false});
+    }
+
+    componentWillUnmount() {
+        this.setState({pageLoading: true});
     }
 
     inputChangedHandler = (event) => {
@@ -20,14 +31,17 @@ class Home extends Component {
 
     formSubmitHandler = (event) => {
         event.preventDefault();
-        console.log('DOES THIS EVEN WORK');
+        this.setState({codeLoading: true});
         const payload = {baseUrl: this.state.inputUrl, username: this.props.currentUser};
         axios.post('https://stark-fjord-67228.herokuapp.com/urls/new', payload)
             .then(res => {
                 console.log(res);
-                this.setState({generatedCode: res.data});
+                this.setState({generatedCode: res.data, codeLoading: false});
             })
-            .catch(err => console.log(err));
+            .catch(err => {
+                console.log(err);
+                this.state({generatedCode: 'Error. Please try again.', codeLoading: false});
+            });
     }
 
     render() {
@@ -37,19 +51,24 @@ class Home extends Component {
 
         let generatedCodeDisplay = null;
 
-        if(this.state.generatedCode) {
+        if(!this.state.generatedCode && this.state.codeLoading) {
+            generatedCodeDisplay = <SmallSpinner />
+        } else if(!this.state.generatedCode) {
+            generatedCodeDisplay = null
+        } else if(!this.state.codeLoading) {
             generatedCodeDisplay = (
                 <div>
                     <p>Generated code:  <a target="_blank" href={'https://stark-fjord-67228.herokuapp.com/'+this.state.generatedCode}>/{this.state.generatedCode}</a></p>
                 </div>
             )
+        } else {
+            generatedCodeDisplay = <SmallSpinner />;
         }
 
         const authRedirect = !this.props.isLoggedIn ? <Redirect to='/' /> : null;
 
-        return (
+        let pageContent = this.state.pageLoading ? <Spinner /> : (
             <div>
-                {authRedirect}
                 <h1 className={classes.Title}>URL shortener</h1>
                 <h3 className={classes.Pink}>Current user: <span style={{color: 'white'}}>{this.props.currentUser}</span></h3>
                 <form onSubmit={this.formSubmitHandler}>
@@ -66,6 +85,13 @@ class Home extends Component {
                 </form>
                 {generatedCodeDisplay}
                 <Link to='/history'>Your history</Link>
+            </div>
+        );
+
+        return (
+            <div>
+                {authRedirect}
+                {pageContent}
             </div>
         )
     }
