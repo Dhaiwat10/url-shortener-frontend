@@ -72,7 +72,7 @@ class Login extends Component {
             authMessage = null;
         }
 
-        const redirect = this.props.isLoggedIn ? <Redirect to='/home' /> : null;
+        const redirect = this.props.isLoggedIn ? <Redirect to='/' /> : null;
 
         const spinner = <Spinner />;
 

@@ -1,7 +1,7 @@
 import * as actionTypes from './actions';
 
 const initialState = {
-    currentUser: '',
+    currentUser: 'guest',
     isLoggedIn: false
 }
 
@@ -17,7 +17,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoggedIn: false,
-                currentUser: ''
+                currentUser: 'guest'
             }
         default:
             return state

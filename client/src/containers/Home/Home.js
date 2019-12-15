@@ -65,14 +65,13 @@ class Home extends Component {
             generatedCodeDisplay = <SmallSpinner />;
         }
 
-        const authRedirect = !this.props.isLoggedIn ? <Redirect to='/' /> : null;
+        const historyDisplay = this.props.isLoggedIn ? <Link to='/history'>Your history</Link> : null;
 
         let pageContent = this.state.pageLoading ? <Spinner /> : (
             <div>
-                <h1 className={classes.Title}>URL shortener</h1>
-                <h3 className={classes.Pink}>Current user: <span style={{color: 'white'}}>{this.props.currentUser}</span></h3>
+                <h4 className={classes.Title}>Enter the URL to be shortened</h4>
+                {/* <h3 className={classes.Pink}>Current user: <span style={{color: 'white'}}>{this.props.currentUser}</span></h3> */}
                 <form onSubmit={this.formSubmitHandler}>
-                    <label className={classes.Pink} for='urlInput'>Enter a URL:</label>
                     <input
                         id='urlInput'
                         className={inputCssClasses} 
@@ -84,13 +83,12 @@ class Home extends Component {
                     <button className={buttonClasses} type="submit">Submit</button>
                 </form>
                 {generatedCodeDisplay}
-                <Link to='/history'>Your history</Link>
+                {historyDisplay}
             </div>
         );
 
         return (
             <div>
-                {authRedirect}
                 {pageContent}
             </div>
         )
