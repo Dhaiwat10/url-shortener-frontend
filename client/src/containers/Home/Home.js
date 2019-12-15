@@ -58,7 +58,7 @@ class Home extends Component {
         } else if(!this.state.codeLoading) {
             generatedCodeDisplay = (
                 <div>
-                    <p>Generated code:  <a target="_blank" href={'https://stark-fjord-67228.herokuapp.com/'+this.state.generatedCode}>/{this.state.generatedCode}</a></p>
+                    <p>Shortened URL:  <a target="_blank" href={'https://stark-fjord-67228.herokuapp.com/'+this.state.generatedCode}>stark-fjord-67228.herokuapp.com/{this.state.generatedCode}</a></p>
                 </div>
             )
         } else {
