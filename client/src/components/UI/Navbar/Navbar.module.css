@@ -1,3 +1,8 @@
-a {
-    margin: 30px 20px 20px 20px;
+.White {
+    color: white !important;
+}
+
+nav {
+    margin-left: 20px;
+    font-size: 20px;
 }

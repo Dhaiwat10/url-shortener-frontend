@@ -69,7 +69,7 @@ class Home extends Component {
 
         let pageContent = this.state.pageLoading ? <Spinner /> : (
             <div>
-                <h4 className={classes.Title}>Enter the URL to be shortened</h4>
+                <h4 className={classes.Title}>Enter the URL you want to shorten:</h4>
                 {/* <h3 className={classes.Pink}>Current user: <span style={{color: 'white'}}>{this.props.currentUser}</span></h3> */}
                 <form onSubmit={this.formSubmitHandler}>
                     <input

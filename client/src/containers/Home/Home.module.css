@@ -1,5 +1,9 @@
 .Title {
-    font-size: 70px;
+    font-size: 40px;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .Pink {
@@ -12,7 +16,7 @@ h3 {
 }
 
 .Input {
-    width: 30%;
+    width: 50%;
     margin: auto;
     padding: 16px;
 }
