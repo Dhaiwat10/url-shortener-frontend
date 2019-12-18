@@ -9,6 +9,8 @@ import Register from './containers/Register/Register';
 import History from './containers/History/History';
 import Navbar from './components/UI/Navbar/Navbar';
 
+import FontAwesome from 'react-fontawesome';
+
 function App() {
   return (
       <div className='App'>
@@ -21,7 +23,11 @@ function App() {
           <Route path='/' exact component={Home} /> 
         </Switch>
         <footer>
-          Made with ❤️ by <a href='https://github.com/Dhaiwat10'>Dhaiwat</a>
+          <span>Made with ❤️ by Dhaiwat</span>
+          <span>•</span>
+          <span><a href='https://github.com/Dhaiwat10' target='_blank'><FontAwesome name='fab fa-github' />Github</a></span>
+          <span>•</span>
+          <span><a href='https://instagram.com/dhaiwat10' target='_blank'><FontAwesome name='fab fa-instagram' />Instagram</a></span>
         </footer>
       </div>
   );

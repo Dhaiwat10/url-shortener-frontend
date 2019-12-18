@@ -6,12 +6,16 @@ import classes from './Home.module.css';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import SmallSpinner from '../../components/UI/SmallSpinner/SmallSpinner';
 
+import {CopyToClipboard} from 'react-copy-to-clipboard'
+import FontAwesome from 'react-fontawesome';
+
 class Home extends Component {
     state = {
         inputUrl: null,
         generatedCode: null,
         pageLoading: true,
-        codeLoading: false
+        codeLoading: false,
+        copied: false
     }
 
     componentDidMount() {
@@ -23,7 +27,7 @@ class Home extends Component {
     }
 
     inputChangedHandler = (event) => {
-        this.setState({inputUrl: event.target.value});
+        this.setState({inputUrl: event.target.value, copied: false, generatedCode: null});
         // axios.post('/', {baseUrl: this.state.inputUrl})
         //     .then(res => console.log(res))
         //     .catch(err => console.log(err));
@@ -44,10 +48,15 @@ class Home extends Component {
             });
     }
 
+    onCopyHandler = () => {
+        this.setState({copied: true})
+    }
+
     render() {
         //CSS classes
-        const inputCssClasses = [classes.Input, 'form-control'].join(' ');
-        const buttonClasses = ['btn', classes.Button].join(' ');
+        const inputCssClasses = [classes.Input, 'form-control'].join(' ')
+        const buttonClasses = ['btn', classes.Button].join(' ')
+        const copyButtonClasses = ['btn', classes.CopyButton].join(' ')
 
         let generatedCodeDisplay = null;
 
@@ -59,6 +68,13 @@ class Home extends Component {
             generatedCodeDisplay = (
                 <div>
                     <p>Shortened URL:  <a target="_blank" href={'https://stark-fjord-67228.herokuapp.com/'+this.state.generatedCode}>stark-fjord-67228.herokuapp.com/{this.state.generatedCode}</a></p>
+                    <CopyToClipboard text={'https://stark-fjord-67228.herokuapp.com/'+this.state.generatedCode}
+                        onCopy={this.onCopyHandler}>
+                        <button className={copyButtonClasses}>
+                            Copy
+                        </button>
+                    </CopyToClipboard>
+                    {this.state.copied ? <p><FontAwesome style={{color:'green'}} name='fas fa-check-circle'/>Copied to clipboard</p> : null}
                 </div>
             )
         } else {

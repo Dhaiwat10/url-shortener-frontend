@@ -54,3 +54,15 @@ label {
     margin-top: 20px;
     text-align: left;
 }
+
+.CopyButton {
+    color: white;
+    background-color: #f44292;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.CopyButton:hover {
+    color: white;
+    background-color: #c92871;
+}
