@@ -20,6 +20,9 @@ function App() {
           <Route path='/history' component={History} />
           <Route path='/' exact component={Home} /> 
         </Switch>
+        <footer>
+          Made with ❤️ by <a href='https://github.com/Dhaiwat10'>Dhaiwat</a>
+        </footer>
       </div>
   );
 }
